@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -107,6 +108,75 @@ public class EndpointsControllerTest {
         this.mvc.perform(post(String.format("/math/volume/%d/%d/%d",length,width,height)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("The volume of a 3x5x4 rectangle is 60"));
+
+    }
+
+    @Test
+    public void testcalculateCircleArea() throws Exception {
+        String type = "circle";
+        int radius=4;
+
+        MockHttpServletRequestBuilder request1 = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", type)
+                .param("radius", String.valueOf(radius));
+
+        this.mvc.perform(request1)
+                .andExpect(status().isOk())
+                .andExpect(content().string("Area of a circle with a radius of 4 is 50.26548245743669"));
+
+    }
+
+    @Test
+    public void testcalculateCircleAreaInvalid() throws Exception {
+        String type = "circle";
+        int length=4;
+
+        MockHttpServletRequestBuilder request1 = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", type)
+                .param("length", String.valueOf(length));
+
+        this.mvc.perform(request1)
+                .andExpect(status().isOk())
+                .andExpect(content().string("Invalid"));
+
+    }
+
+    @Test
+    public void testcalculateRectangleArea() throws Exception {
+        String type = "rectangle";
+        int width=4;
+        int height=5;
+
+        MockHttpServletRequestBuilder request1 = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", type)
+                .param("width", String.valueOf(width))
+                .param("height", String.valueOf(height));
+
+        this.mvc.perform(request1)
+                .andExpect(status().isOk())
+                .andExpect(content().string("Area of a 4x5 rectangle is 20"));
+
+    }
+
+    @Test
+    public void testcalculateRectangleAreaInvalid() throws Exception {
+        String type = "rectangle";
+        int radius=4;
+        int height=5;
+
+
+        MockHttpServletRequestBuilder request1 = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", type)
+                .param("radius", String.valueOf(radius))
+                .param("height",String.valueOf(height));
+
+        this.mvc.perform(request1)
+                .andExpect(status().isOk())
+                .andExpect(content().string("Invalid"));
 
     }
 
