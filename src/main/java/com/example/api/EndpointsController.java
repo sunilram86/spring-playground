@@ -1,14 +1,8 @@
 package com.example.api;
 
 import com.example.workflow.MathService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 import static java.lang.String.valueOf;
 
@@ -49,4 +43,15 @@ public class EndpointsController {
         return (mathService.calculateSum(querystring));
 
     }
+
+    @GetMapping("/tasks/{taskId}/comments/{commentId}")
+    public String getCommentsForTask(@PathVariable int taskId, @PathVariable int commentId) {
+        return String.format("taskId is %d; commentId is %d", taskId, commentId);
+    }
+
+    @RequestMapping("/math/volume/{length}/{width}/{height}")
+    public String calculateRectangleVolume(@PathVariable int length, @PathVariable int width, @PathVariable int height) {
+        return  String.format("The volume of a %dx%dx%d rectangle is "+(length*width*height), length,width,height);
+    }
+
 }

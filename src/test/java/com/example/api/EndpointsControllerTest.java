@@ -78,4 +78,37 @@ public class EndpointsControllerTest {
                 .andExpect(content().string("18"));
     }
 
+    @Test
+    public void testgetCommentsForTask() throws Exception {
+        int taskId=4;
+        int commentId=5;
+        this.mvc.perform(get(String.format("/tasks/%d/comments/%d", taskId,commentId)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("taskId is 4; commentId is 5"));
+
+    }
+
+    @Test
+    public void testGetcalculateRectangleVolume() throws Exception {
+        int height=4;
+        int width=5;
+        int length=3;
+        this.mvc.perform(get(String.format("/math/volume/%d/%d/%d",length,width,height)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x5x4 rectangle is 60"));
+
+    }
+
+    @Test
+    public void testPostcalculateRectangleVolume() throws Exception {
+        int height=4;
+        int width=5;
+        int length=3;
+        this.mvc.perform(post(String.format("/math/volume/%d/%d/%d",length,width,height)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x5x4 rectangle is 60"));
+
+    }
+
+
 }
