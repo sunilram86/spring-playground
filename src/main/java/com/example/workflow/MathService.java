@@ -35,7 +35,7 @@ public class MathService {
         return null;
     }
 
-    public String calculateSum(MultiValueMap<String, String> querystring) {
+    public String  calculateSum(MultiValueMap<String, String> querystring) {
         List<String> list = null;
         Integer sum = 0;
         for (String key : querystring.keySet()) {
