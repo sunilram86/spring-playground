@@ -17,7 +17,7 @@ public class Flight {
     @JsonProperty("Departs")
     private Date departs;
     @JsonProperty("Tickets")
-    private List<Ticket> tickets;
+    private List<Ticket> tickets=null;
 
     public Flight(Date departs, List<Ticket> tickets) {
         this.departs = departs;
@@ -40,5 +40,11 @@ public class Flight {
         return tickets;
     }
 
-
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "departs=" + departs +
+                ", tickets=" + tickets +
+                '}';
+    }
 }

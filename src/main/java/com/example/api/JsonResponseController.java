@@ -1,8 +1,13 @@
 package com.example.api;
 
 
+import com.example.workflow.Blog;
+import com.example.workflow.Example;
 import com.example.workflow.FlightSample;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -82,5 +87,18 @@ public class JsonResponseController {
         return asList(flightSample1, flightSample2);
     }
 
+    @PostMapping("/receiveJson")
+    public String postJson(@RequestBody Example
+                                   example) {
+        String q = example.getQ();
+        String from = example.getFrom();
+
+        return "Search: q=" + q + " from=" + from;
+    }
+
+    @PostMapping("/nested-example")
+        public Blog getNested(@RequestBody Blog blog) {
+           return blog;
+    }
 
 }
