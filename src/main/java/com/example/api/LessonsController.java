@@ -30,12 +30,10 @@ public class LessonsController {
     @GetMapping("/{index}")
     public Lesson findTitlebyID(@PathVariable Long index)
     {
-        System.out.println("index"+index);
         System.out.println(this.repository.findOne(index));
 
 
         Lesson lesson= this.repository.findOne(index);
-        System.out.println(lesson);
         return lesson;
 
 
@@ -58,6 +56,26 @@ public class LessonsController {
     {
         System.out.println("index"+index);
         this.repository.delete(index);
+
+    }
+
+
+
+    @GetMapping("/movies/find/{title}")
+    public Lesson findMoviesbyTitle(@PathVariable String title)
+    {
+        System.out.println(this.repository.findByTitle(title));
+        Lesson lesson= this.repository.findByTitle(title);
+        return lesson;
+
+
+    }
+
+    @GetMapping("/movies/count")
+    public int countMovies()
+    {
+        int count= this.repository.countTitles();
+        return count;
 
     }
 

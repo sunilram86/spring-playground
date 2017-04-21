@@ -52,6 +52,16 @@ public class LessonsControllerTest {
     }
 
     @Test
+    public void testcountTitles() throws Exception {
+        String content = String.valueOf(1);
+
+        this.mvc.perform(
+                get("/lessons/movies/count"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(content));
+    }
+
+    @Test
     public void testfindbyID() throws Exception {
 
         this.mvc.perform(
