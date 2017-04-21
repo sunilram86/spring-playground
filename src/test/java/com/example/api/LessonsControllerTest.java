@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.net.URL;
@@ -51,10 +53,25 @@ public class LessonsControllerTest {
         mvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
+
+    @Test
+    @Transactional
+    @Commit
+    public void testcreateLesson() throws Exception{
+
+        String payload = getJSON("/data2.json");
+        this.mvc.perform(
+                post("/lessons")
+                .content(payload)
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.title", is("temp book")));
+
+    }
+
+
     @Test
     public void testcountTitles() throws Exception {
-        String content = String.valueOf(1);
-
+        String content = String.valueOf(3);
         this.mvc.perform(
                 get("/lessons/movies/count"))
                 .andExpect(status().isOk())
@@ -65,7 +82,7 @@ public class LessonsControllerTest {
     public void testfindbyID() throws Exception {
 
         this.mvc.perform(
-                        get("/lessons/1"))
+                        get("/lessons/3"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title", is("new title")));
     }
