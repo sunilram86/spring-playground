@@ -19,6 +19,7 @@ public class WordController {
     @PostMapping("/words/count")
     public Map<String, Integer> countWords(@RequestBody String input)
     {
+        System.out.println(input);
             return obj.count(input);
 
 

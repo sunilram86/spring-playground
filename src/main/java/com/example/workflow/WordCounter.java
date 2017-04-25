@@ -1,12 +1,15 @@
 package com.example.workflow;
 
 
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
-
+@Service
+@Primary
 public class WordCounter {
 
     public Map<String, Integer> count(String inputString) {
