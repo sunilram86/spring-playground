@@ -11,17 +11,16 @@ import java.util.Map;
 @RestController
 public class WordController {
 
-    private final WordCounter obj;
+    @Autowired
+    private  WordCounter obj;
 
-    public WordController(WordCounter obj){
-        this.obj=obj;
-    }
+//    public WordController(WordCounter obj){
+//        this.obj=obj;
+//    }
     @PostMapping("/words/count")
     public Map<String, Integer> countWords(@RequestBody String input)
     {
         System.out.println(input);
             return obj.count(input);
-
-
     }
 }

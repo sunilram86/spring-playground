@@ -10,23 +10,26 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class ServiceTest {
+public class MyServiceTest {
 
     @Autowired
-    WordCounter wordCounter;
+    MyService myService;
+
 
     @Test
-    public void testShouldWork() {
+    public void testconfig() throws Exception
+    {
 
-        Map<String, Integer> expected = new LinkedHashMap<>();
-        expected.put("sunil", 1);
-        expected.put("anil", 2);
-
-
-        assertThat(wordCounter.count("sunil anil"), equalTo( expected));
+        String url = "https://example1.com";
+        String username="neil";
+        assertThat(myService.getUrlFromConfig(), equalTo( url));
+        assertThat(myService.getusernamefromconfig(), equalTo( username));
     }
-}
+    }
+
+
+
