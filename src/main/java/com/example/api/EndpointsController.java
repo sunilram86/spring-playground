@@ -35,15 +35,15 @@ public class EndpointsController {
     }
 
     @GetMapping("/math/calculate")
-    public String calculate(@RequestParam(required = false) String operation,
-                            @RequestParam(value = "x") int x, @RequestParam(value = "y") int y) {
+        public String calculate(@RequestParam(required = false) String operation,
+                                @RequestParam(value = "x") int x, @RequestParam(value = "y") int y) {
         return (mathService.calculate(operation, x, y));
 
     }
 
     @PostMapping("/math/sum")
     public String calculateSum(@RequestParam MultiValueMap<String, String> querystring) {
-        return (mathService.calculateSum(querystring));
+            return (mathService.calculateSum(querystring));
 
     }
 
