@@ -1,8 +1,10 @@
 package com.example.workflow;
 
+import com.example.MovieConfig;
 import com.example.model.FinalMoviesResponse;
 import com.example.model.MovieResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -21,16 +23,30 @@ import static java.lang.Character.toLowerCase;
 @Service
 public class MoviesService {
 
+
+    private MovieConfig movieConfig;
+
+    public MoviesService(MovieConfig movieConfig) {
+        this.movieConfig = movieConfig;
+    }
+
     private final RestTemplate restTemplate = new RestTemplate();
+
+    public RestTemplate getRestTemplate()
+    {
+        return  this.restTemplate;
+    }
 
     public List<HashMap<String,Object>> getMovies(String q)
     {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("http://www.omdbapi.com/")
+                .fromUriString(movieConfig.getUrl())
                 .queryParam("s",q)
                 .build()
                 .toUri();
+
+
 
         // Create the request
 
